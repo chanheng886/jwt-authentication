@@ -44,7 +44,8 @@ public class JwtService {
 
         String username = extractUsername(token);
 
-        return username.equals(userDetails.getUsername());
+        return username.equals(userDetails.getUsername()) 
+            && !extractAllClaims(token).getExpiration().before(new Date());
     }
 
     private Claims extractAllClaims(String token) {

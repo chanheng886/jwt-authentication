@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override 
     public AuthResponse login(UserLoginRequest req){
         User user = repository.findByEmail(req.email())
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "Invalid email or password!"));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password!"));
         
         if(!encoder.matches(req.password(), user.getPassword())){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password!");

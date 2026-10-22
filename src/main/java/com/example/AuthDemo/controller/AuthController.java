@@ -1,7 +1,6 @@
 package com.example.AuthDemo.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +10,7 @@ import com.example.AuthDemo.dtos.Request.UserRegisterRequest;
 import com.example.AuthDemo.dtos.Response.AuthResponse;
 import com.example.AuthDemo.dtos.Response.UserResponse;
 import com.example.AuthDemo.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequestMapping ("/api/auth")
@@ -20,13 +20,13 @@ public class AuthController {
     private final UserService service;
 
     @PostMapping ("/register")
-    public ResponseEntity<UserResponse> userRegister(@RequestBody UserRegisterRequest req){
+    public ResponseEntity<UserResponse> userRegister(@Valid @RequestBody UserRegisterRequest req){
         UserResponse res = service.register(req);
         return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
 
     @PostMapping ("/login")
-    public ResponseEntity<AuthResponse> userLogin(@RequestBody UserLoginRequest req){
+    public ResponseEntity<AuthResponse> userLogin(@Valid @RequestBody UserLoginRequest req){
         AuthResponse res = service.login(req);
         return ResponseEntity.ok(res);
     }

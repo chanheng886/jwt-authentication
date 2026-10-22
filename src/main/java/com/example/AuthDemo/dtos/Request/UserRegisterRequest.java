@@ -12,7 +12,7 @@ public record UserRegisterRequest(
     @NotBlank (message = "Please confirm your password!")
     String confirmPassword
 ) {
-    @AssertTrue 
+    @AssertTrue (message = "Password and confirm password do not match!")
     public boolean isPasswordMatched(){
         return password != null && password.equals(confirmPassword);
     }
